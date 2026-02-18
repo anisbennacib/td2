@@ -656,6 +656,98 @@
     color: var(--accent);
   }
 
+
+  /* EXPLANATION PANEL */
+  .expl-panel { display: none; flex-direction: column; gap: 16px; }
+  .expl-panel.active { display: flex; }
+  .tab.active-expl { background: rgba(247,129,102,0.15); color: #f78166; border: 1px solid rgba(247,129,102,0.4); }
+  :root[data-theme="light"] .tab.active-expl { background: rgba(207,34,46,0.08); color: #cf222e; border-color: rgba(207,34,46,0.3); }
+
+  .expl-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .expl-block.objectif { border-left: 3px solid var(--accent); }
+  .expl-block.idee     { border-left: 3px solid var(--accent4); }
+  .expl-block.etapes   { border-left: 3px solid var(--accent2); }
+  .expl-block.attention{ border-left: 3px solid #f78166; }
+  .expl-block.motcle   { border-left: 3px solid #f2cc60; }
+
+  .expl-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .expl-content { flex: 1; }
+  .expl-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 7px;
+  }
+  .expl-text {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+  .expl-text code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: var(--accent);
+  }
+  .expl-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0; padding: 0;
+  }
+  .expl-steps li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .step-num {
+    width: 22px; height: 22px;
+    background: rgba(63,185,80,0.15);
+    border: 1px solid rgba(63,185,80,0.3);
+    color: var(--accent2);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .motcle-list { display: flex; flex-direction: column; gap: 8px; }
+  .motcle-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; line-height: 1.6; }
+  .motcle-tag {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(242,204,96,0.12);
+    border: 1px solid rgba(242,204,96,0.3);
+    color: #f2cc60;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  :root[data-theme="light"] .motcle-tag {
+    background: rgba(154, 103, 0, 0.08);
+    border-color: rgba(154, 103, 0, 0.35);
+    color: #8a5c00;
+  }
+
   /* REMARK */
   .remark {
     background: rgba(247,129,102,0.08);
@@ -834,6 +926,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex1')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex1')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex1')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex1-algo">
           <div class="code-block">
@@ -893,6 +986,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex1-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Créer un nouveau fichier et y enregistrer exactement <strong>n produits</strong>, saisis un par un au clavier.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ouvre un fichier vierge, puis on répète <strong>n fois</strong> la même opération : demander les infos d'un produit, construire une ligne CSV et l'écrire dans le fichier. À la fin, on ferme le fichier.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">"w"</span><span>Mode <strong>écriture</strong> — crée le fichier s'il n'existe pas, l'écrase s'il existe déjà.</span></div><div class="motcle-item"><span class="motcle-tag">Pour i de 1 à n</span><span>On répète exactement <strong>n fois</strong>, une fois par produit.</span></div><div class="motcle-item"><span class="motcle-tag">Répéter...Jusqu'à</span><span>Valide la saisie — tourne <strong>au moins une fois</strong> jusqu'à avoir une valeur correcte.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir le fichier en mode écriture <code>"w"</code></span></li><li><span class="step-num">2</span><span>Répéter n fois : saisir code, nom, quantité (validée &gt; 0) et prix (validé &gt; 0)</span></li><li><span class="step-num">3</span><span>Construire la ligne : <code>code,nom,qte,pu</code> et l'écrire</span></li><li><span class="step-num">4</span><span>Fermer le fichier après la boucle</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Le mode <code>"w"</code> <strong>écrase</strong> tout fichier existant du même nom. Les données précédentes seront perdues !</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -910,6 +1011,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex2')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex2')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex2')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex2-algo">
           <div class="code-block">
@@ -970,6 +1072,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex2-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Créer et remplir le fichier avec autant de produits que l'utilisateur veut, en lui demandant à chaque fois s'il souhaite continuer.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ne connaît pas à l'avance le nombre de produits. On utilise une boucle qui continue tant que l'utilisateur répond <strong>"O"</strong>, et s'arrête dès qu'il répond <strong>"N"</strong>.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Répéter...Jusqu'à</span><span>La boucle principale s'exécute <strong>au moins une fois</strong> — on saisit toujours au moins un produit.</span></div><div class="motcle-item"><span class="motcle-tag">rep ∊ {"O","N"}</span><span>On valide que la réponse est bien <strong>O ou N</strong> uniquement.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir le fichier en mode <code>"w"</code></span></li><li><span class="step-num">2</span><span>Saisir les infos d'un produit et l'écrire dans le fichier</span></li><li><span class="step-num">3</span><span>Demander : "Voulez-vous ajouter un produit (O/N) ?"</span></li><li><span class="step-num">4</span><span>Si "O" → recommencer, si "N" → sortir et fermer</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Il faut valider la réponse (O ou N uniquement). Une réponse comme "o" minuscule ou "Oui" ne doit pas être acceptée.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -987,6 +1097,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex3')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex3')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex3')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex3-algo">
           <div class="code-block">
@@ -1027,6 +1138,14 @@
     <span class="py-kw">return</span> cpt</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex3-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Parcourir le fichier et compter le nombre de lignes, c'est-à-dire le nombre total de produits.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ouvre le fichier, on le lit ligne par ligne, et à chaque ligne lue on incrémente un compteur. Quand on atteint la fin du fichier, le compteur donne le nombre total de produits.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">"r"</span><span>Mode <strong>lecture</strong> — on lit le fichier sans le modifier.</span></div><div class="motcle-item"><span class="motcle-tag">Fin_Fichier(F)</span><span>Condition vraie quand toutes les lignes ont été lues.</span></div><div class="motcle-item"><span class="motcle-tag">cpt ← cpt + 1</span><span>On incrémente le compteur à chaque ligne lue.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir en lecture, initialiser <code>cpt ← 0</code></span></li><li><span class="step-num">2</span><span>Tant qu'on n'est pas à la fin : lire une ligne, incrémenter cpt</span></li><li><span class="step-num">3</span><span>Fermer le fichier et retourner cpt</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Ne pas oublier d'initialiser <code>cpt ← 0</code> avant la boucle, sinon le compteur part d'une valeur aléatoire.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1044,6 +1163,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex4')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex4')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex4')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex4-algo">
           <div class="code-block">
@@ -1075,6 +1195,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex4-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Ajouter un nouveau produit <strong>à la fin</strong> du fichier sans effacer les produits déjà enregistrés.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ouvre le fichier en mode <strong>ajout</strong> — le curseur se place automatiquement à la fin. On écrit la nouvelle ligne puis on ferme. Comme écrire sur la prochaine page vierge d'un cahier déjà rempli.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">"a"</span><span>Mode <strong>ajout (append)</strong> — le curseur se place à la fin, l'ancien contenu est <strong>préservé</strong>.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir en mode ajout <code>"a"</code></span></li><li><span class="step-num">2</span><span>Construire la ligne : <code>code,nom,qte,pu</code></span></li><li><span class="step-num">3</span><span>Écrire la ligne à la fin du fichier</span></li><li><span class="step-num">4</span><span>Fermer le fichier</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Ne jamais utiliser <code>"w"</code> ici ! Le mode <code>"w"</code> effacerait tout le contenu existant.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1092,6 +1220,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex5')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex5')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex5')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex5-algo">
           <div class="code-block">
@@ -1131,6 +1260,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex5-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Insérer un nouveau produit tout en haut du fichier, de sorte qu'il devienne la <strong>première ligne</strong>.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ne peut pas insérer une ligne au début directement. L'astuce : on lit tout le contenu du fichier en mémoire, on réécrit le fichier en mettant <strong>d'abord le nouveau produit</strong>, puis on recopie l'ancien contenu à la suite.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Lire (F, contenu)</span><span>Lit <strong>tout le fichier</strong> d'un coup dans une variable.</span></div><div class="motcle-item"><span class="motcle-tag">"w"</span><span>On réouvre en écriture pour tout réécrire dans le bon ordre.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Lire tout le contenu existant dans <code>contenu</code></span></li><li><span class="step-num">2</span><span>Fermer, puis rouvrir en écriture <code>"w"</code></span></li><li><span class="step-num">3</span><span>Écrire d'abord la <strong>nouvelle ligne</strong></span></li><li><span class="step-num">4</span><span>Écrire ensuite <strong>l'ancien contenu</strong></span></li><li><span class="step-num">5</span><span>Fermer le fichier</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">L'ordre d'écriture est crucial : nouveau produit <strong>d'abord</strong>, ancien contenu <strong>ensuite</strong>. Inverser les deux et le produit se retrouvera à la fin !</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1148,6 +1285,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex6')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex6')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex6')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex6-algo">
           <div class="code-block">
@@ -1194,6 +1332,14 @@
     <span class="py-kw">return</span> trouve</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex6-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Chercher si un produit avec un code donné existe dans le fichier, et retourner <strong>Vrai</strong> ou <strong>Faux</strong>.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On parcourt le fichier ligne par ligne. Pour chaque ligne, on extrait le code (tout ce qui est avant la première virgule) et on le compare au code recherché. Dès qu'on trouve une correspondance, on s'arrête et on retourne Vrai. Si on arrive à la fin sans trouver, on retourne Faux.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">trouve ← Faux</span><span>On part du principe que le produit n'existe pas, et on passe à Vrai seulement si trouvé.</span></div><div class="motcle-item"><span class="motcle-tag">Pos(",", ch)</span><span>Donne la position de la <strong>première virgule</strong> — tout ce qui est avant est le code.</span></div><div class="motcle-item"><span class="motcle-tag">Et (trouve = Faux)</span><span>On arrête la boucle dès qu'on a trouvé — inutile de continuer.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir en lecture, initialiser <code>trouve ← Faux</code></span></li><li><span class="step-num">2</span><span>Lire chaque ligne et extraire le code (avant la 1ère virgule)</span></li><li><span class="step-num">3</span><span>Si code = code cherché → <code>trouve ← Vrai</code></span></li><li><span class="step-num">4</span><span>Fermer et retourner <code>trouve</code></span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">La condition de boucle doit tester <strong>à la fois</strong> la fin du fichier ET que le produit n'est pas encore trouvé. Sinon on continue à lire inutilement.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1211,6 +1357,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex7')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex7')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex7')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex7-algo">
           <div class="code-block">
@@ -1243,6 +1390,14 @@
         <span class="py-builtin">print</span>(<span class="py-str">"Produit ajouté avec succès"</span>)</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex7-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Ajouter un produit au fichier <strong>seulement s'il n'existe pas déjà</strong>, pour éviter les doublons.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On réutilise la fonction <strong>Rechercher</strong> déjà écrite. Si elle retourne Vrai, le produit existe — on affiche un message. Si elle retourne Faux, le produit est nouveau — on l'ajoute à la fin du fichier.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Rechercher()</span><span>On <strong>réutilise</strong> une fonction déjà écrite — c'est le principe de la modularité.</span></div><div class="motcle-item"><span class="motcle-tag">"a"</span><span>On ajoute à la fin seulement si le produit est nouveau.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Appeler <code>Rechercher(nomf, code)</code></span></li><li><span class="step-num">2</span><span>Si Vrai → afficher "Produit déjà existant"</span></li><li><span class="step-num">3</span><span>Si Faux → ouvrir en <code>"a"</code>, écrire le produit, fermer</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">C'est la vérification par <strong>code</strong> qui compte. Deux produits peuvent avoir le même nom mais des codes différents — seul le code identifie un produit de façon unique.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1261,6 +1416,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex8')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex8')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex8')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex8-algo">
           <div class="code-block">
@@ -1322,6 +1478,14 @@
     Fc.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex8-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Générer un fichier de commande listant tous les produits dont la quantité est inférieure à un seuil donné.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On lit le fichier source ligne par ligne. Pour chaque produit, on extrait la quantité. Si elle est inférieure au seuil, on calcule ce qu'il faut commander (<code>seuil - qte</code>) et on l'écrit dans le fichier de commande.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Deux fichiers</span><span>Un en <strong>lecture</strong> (source) et un en <strong>écriture</strong> (commande), ouverts simultanément.</span></div><div class="motcle-item"><span class="motcle-tag">seuil - qte</span><span>La quantité à commander = ce qu'il manque pour atteindre le seuil.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir le fichier source en lecture et le fichier commande en écriture</span></li><li><span class="step-num">2</span><span>Pour chaque ligne : extraire code, nom et quantité</span></li><li><span class="step-num">3</span><span>Si <code>qte &lt; seuil</code> : calculer et écrire dans le fichier commande</span></li><li><span class="step-num">4</span><span>Fermer les deux fichiers</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Ne pas oublier de fermer <strong>les deux fichiers</strong> à la fin. Si on ne ferme pas le fichier commande, son contenu peut ne pas être sauvegardé correctement.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1339,6 +1503,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex9')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex9')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex9')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex9-algo">
           <div class="code-block">
@@ -1395,6 +1560,14 @@
     F.close()  ;  Fc.close()  ;  Fe.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex9-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Séparer les produits en deux fichiers : les <strong>chers</strong> (prix &gt; seuil) et les <strong>économiques</strong> (prix ≤ seuil).</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ouvre <strong>trois fichiers</strong> simultanément : le source en lecture, et les deux destinations en écriture. Pour chaque ligne lue, on extrait le prix et on redirige la ligne vers le bon fichier selon le seuil.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Extraire_Prix(ch)</span><span>Parcourt la ligne <strong>de droite à gauche</strong> pour trouver la dernière virgule et extraire le prix.</span></div><div class="motcle-item"><span class="motcle-tag">3 fichiers</span><span>F (lecture), Fc (chers), Fe (éco) — tous ouverts en même temps.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir les trois fichiers</span></li><li><span class="step-num">2</span><span>Pour chaque ligne : extraire le prix avec <code>Extraire_Prix</code></span></li><li><span class="step-num">3</span><span>Si prix &gt; seuil → écrire dans "chers", sinon → écrire dans "éco"</span></li><li><span class="step-num">4</span><span>Fermer les trois fichiers</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text"><code>Extraire_Prix</code> parcourt depuis la droite car le prix est le <strong>dernier champ</strong> de la ligne CSV.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1412,6 +1585,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex10')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex10')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex10')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex10-algo">
           <div class="code-block">
@@ -1471,6 +1645,14 @@
         <span class="py-builtin">print</span>(<span class="py-str">"Produit supprimé avec succès"</span>)</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex10-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Supprimer du fichier le produit dont le code correspond à <code>code_supp</code>. Si le produit n'existe pas, afficher un message.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On ne peut pas effacer une ligne directement dans un fichier texte. L'astuce : on lit toutes les lignes et on les stocke dans un tableau en <strong>sautant celle à supprimer</strong>. Ensuite on réécrit le fichier entier à partir du tableau.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Tableau T</span><span>Stocke toutes les lignes <strong>à conserver</strong> (sauf celle à supprimer).</span></div><div class="motcle-item"><span class="motcle-tag">trouve</span><span>Booléen pour savoir si le produit existait — permet d'afficher le bon message.</span></div><div class="motcle-item"><span class="motcle-tag">Réécriture "w"</span><span>On réécrit le fichier avec uniquement les lignes conservées.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Lire toutes les lignes du fichier</span></li><li><span class="step-num">2</span><span>Si code ≠ code_supp → stocker dans T ; sinon → sauter et mettre <code>trouve ← Vrai</code></span></li><li><span class="step-num">3</span><span>Réécrire le fichier avec les lignes de T</span></li><li><span class="step-num">4</span><span>Afficher le message selon <code>trouve</code></span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Ne pas oublier de réécrire le fichier après la lecture ! Sans cette étape, le fichier reste intact et rien n'est supprimé.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1488,6 +1670,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex11')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex11')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex11')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex11-algo">
           <div class="code-block">
@@ -1529,6 +1712,14 @@
     <span class="py-kw">return</span> total</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex11-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Calculer et retourner la <strong>valeur totale du stock</strong> = somme de (quantité × prix unitaire) pour chaque produit.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On parcourt le fichier ligne par ligne. Pour chaque ligne, on extrait la quantité et le prix, on calcule leur produit, et on l'ajoute à un accumulateur <code>total</code>. À la fin, on retourne ce total.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">total ← 0</span><span>Accumulateur initialisé à 0 — on y ajoute la valeur de chaque produit.</span></div><div class="motcle-item"><span class="motcle-tag">Effacer × 2</span><span>On saute le code puis le nom pour arriver directement aux champs quantité et prix.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Ouvrir en lecture, initialiser <code>total ← 0</code></span></li><li><span class="step-num">2</span><span>Pour chaque ligne : sauter code et nom, extraire qte et pu</span></li><li><span class="step-num">3</span><span>Ajouter <code>qte × pu</code> au total</span></li><li><span class="step-num">4</span><span>Fermer et retourner <code>total</code></span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Bien convertir <code>qte</code> en entier et <code>pu</code> en réel avant la multiplication, sinon le résultat sera incorrect.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1546,6 +1737,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex12')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex12')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex12')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex12-algo">
           <div class="code-block">
@@ -1613,6 +1805,14 @@
         <span class="py-builtin">print</span>(<span class="py-str">"Produit inexistant"</span>)</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex12-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Modifier le prix unitaire d'un produit spécifique identifié par son code, sans toucher aux autres produits.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">Même technique que la suppression : on lit toutes les lignes dans un tableau. La ligne du produit à modifier est <strong>reconstruite</strong> avec le nouveau prix. Toutes les autres sont copiées telles quelles. On réécrit ensuite le fichier.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Reconstruction</span><span>On recrée la ligne : <code>code + "," + nom + "," + qte + "," + nouveau_prix</code></span></div><div class="motcle-item"><span class="motcle-tag">trouve</span><span>Permet de savoir si le produit existait pour afficher le message approprié.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Lire toutes les lignes dans le tableau T</span></li><li><span class="step-num">2</span><span>Si code = code_modif → reconstruire la ligne avec le nouveau prix</span></li><li><span class="step-num">3</span><span>Sinon → copier la ligne telle quelle</span></li><li><span class="step-num">4</span><span>Réécrire le fichier complet et afficher le message</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">On modifie <strong>uniquement le prix</strong>. Bien extraire le code, nom et quantité avant de reconstruire la ligne.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1631,6 +1831,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex13')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex13')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex13')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex13-algo">
           <div class="code-block">
@@ -1689,6 +1890,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex13-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Augmenter le prix de <strong>tous les produits</strong> d'un certain pourcentage donné.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">Même principe que Modifier_Prix, mais appliqué à <strong>toutes les lignes sans exception</strong>. On lit, on calcule le nouveau prix avec la formule, on reconstruit chaque ligne, et on réécrit le fichier entier.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">pu × (1 + p/100)</span><span>Formule d'augmentation. Ex : +10% → multiplier par 1.10</span></div><div class="motcle-item"><span class="motcle-tag">Toutes les lignes</span><span>Pas de condition — on modifie <strong>chaque produit</strong> sans exception.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Lire chaque ligne et extraire code, nom, qte, pu</span></li><li><span class="step-num">2</span><span>Calculer <code>nouveau_pu = pu × (1 + pourcentage/100)</code></span></li><li><span class="step-num">3</span><span>Reconstruire la ligne avec le nouveau prix et stocker dans T</span></li><li><span class="step-num">4</span><span>Réécrire le fichier complet à partir de T</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">Ne pas oublier de diviser par 100 dans la formule. Un pourcentage de 10 signifie <code>× 1.10</code>, pas <code>× 11</code> !</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1707,6 +1916,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex14')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex14')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex14')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex14-algo">
           <div class="code-block">
@@ -1768,6 +1978,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex14-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Trier tous les produits du fichier par <strong>prix unitaire croissant</strong> (du moins cher au plus cher).</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On charge toutes les lignes dans un tableau, puis on applique un <strong>tri par insertion</strong> en comparant les prix. Une fois trié, on réécrit le fichier dans le nouvel ordre.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">Tri par insertion</span><span>Pour chaque élément, on le déplace vers la gauche jusqu'à sa bonne place parmi les éléments déjà triés.</span></div><div class="motcle-item"><span class="motcle-tag">Extraire_Prix()</span><span>Utilisée à chaque comparaison pour obtenir le prix depuis une ligne CSV.</span></div><div class="motcle-item"><span class="motcle-tag">aux</span><span>Variable temporaire qui garde la ligne courante pendant les décalages.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Charger toutes les lignes du fichier dans le tableau T</span></li><li><span class="step-num">2</span><span>Appliquer le tri par insertion en comparant les prix avec <code>Extraire_Prix</code></span></li><li><span class="step-num">3</span><span>Réécrire le fichier dans l'ordre trié</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">On trie des <strong>lignes entières</strong>, pas seulement les prix. On compare les prix avec <code>Extraire_Prix</code>, mais on déplace les lignes complètes.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1785,6 +2003,7 @@
         <div class="tabs">
           <button class="tab active-algo" onclick="switchTab(this,'algo','ex15')">Algorithme</button>
           <button class="tab" onclick="switchTab(this,'py','ex15')">Python</button>
+          <button class="tab" onclick="switchTab(this,'expl','ex15')">💡 Explication</button>
         </div>
         <div class="code-panel active" id="ex15-algo">
           <div class="code-block">
@@ -1840,6 +2059,14 @@
     F.close()</pre>
           </div>
         </div>
+        <div class="expl-panel" id="ex15-expl">
+        <div class="expl-block objectif"><span class="expl-icon">🎯</span><div class="expl-content"><div class="expl-title">Objectif</div><div class="expl-text">Insérer un nouveau produit dans un fichier <strong>déjà trié par prix</strong>, en maintenant l'ordre de tri.</div></div></div>
+        <div class="expl-block idee"><span class="expl-icon">💡</span><div class="expl-content"><div class="expl-title">Idée générale</div><div class="expl-text">On charge les lignes dans un tableau, puis on cherche la bonne position pour le nouveau produit en partant de la fin et en décalant les produits plus chers vers la droite. On insère le nouveau produit dans l'espace libéré, puis on réécrit le fichier.</div></div></div>
+        <div class="expl-block motcle"><span class="expl-icon">🔑</span><div class="expl-content"><div class="expl-title">Mots-clés importants</div><div class="motcle-list"><div class="motcle-item"><span class="motcle-tag">i ← n</span><span>On part de la fin du tableau et on remonte pour trouver la bonne position.</span></div><div class="motcle-item"><span class="motcle-tag">T[i] ← T[i-1]</span><span>On décale les éléments plus chers d'une case vers la droite pour faire de la place.</span></div><div class="motcle-item"><span class="motcle-tag">Pour i de 0 à n</span><span>On écrit <code>n+1</code> éléments car on a ajouté un nouveau produit.</span></div></div></div></div>
+        <div class="expl-block etapes"><span class="expl-icon">📋</span><div class="expl-content"><div class="expl-title">Étapes</div><ul class="expl-steps"><li><span class="step-num">1</span><span>Charger toutes les lignes dans T (n lignes)</span></li><li><span class="step-num">2</span><span>Partir de la position n, décaler vers la droite tant que le produit précédent est plus cher</span></li><li><span class="step-num">3</span><span>Insérer le nouveau produit à la position i trouvée</span></li><li><span class="step-num">4</span><span>Réécrire le fichier avec les n+1 lignes</span></li></ul></div></div>
+        <div class="expl-block attention"><span class="expl-icon">⚠️</span><div class="expl-content"><div class="expl-title">Point d'attention</div><div class="expl-text">La boucle d'écriture finale doit aller jusqu'à <code>n</code> inclus, car le tableau contient maintenant <strong>n+1 éléments</strong> après l'insertion.</div></div></div>
+        </div>
+
       </div>
     </div>
 
@@ -1874,9 +2101,12 @@ function toggleEx(header) {
 function switchTab(btn, type, exId) {
   const body = btn.closest('.ex-body');
   const tabs = body.querySelectorAll('.tab');
-  tabs.forEach(t => { t.classList.remove('active-algo','active-py'); });
-  btn.classList.add(type==='algo' ? 'active-algo' : 'active-py');
+  tabs.forEach(t => { t.classList.remove('active-algo','active-py','active-expl'); });
+  if (type === 'algo') btn.classList.add('active-algo');
+  else if (type === 'py') btn.classList.add('active-py');
+  else btn.classList.add('active-expl');
   body.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+  body.querySelectorAll('.expl-panel').forEach(p => p.classList.remove('active'));
   document.getElementById(exId + '-' + type).classList.add('active');
 }
 
