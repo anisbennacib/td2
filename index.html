@@ -92,6 +92,26 @@
     color: var(--text);
   }
   .header-right { display: flex; align-items: center; gap: 12px; }
+  .pdf-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    background: var(--tag-algo);
+    border: 1px solid var(--tag-algo-border);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: 'Sora', sans-serif;
+  }
+  .pdf-link:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
   .badge {
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -666,6 +686,9 @@
       <span class="header-title">TD n°2 — Algorithmes de Manipulation de Fichiers</span>
     </div>
     <div class="header-right">
+      <a class="pdf-link" href="4SI__TD__LesFichiers.pdf" target="_blank" download>
+        <span>📄</span> Énoncé PDF
+      </a>
       <span class="badge">4ème SI</span>
       <div class="theme-toggle">
         <button class="toggle-btn" id="darkBtn" onclick="setTheme('dark')">🌙 Sombre</button>
