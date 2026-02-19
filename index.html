@@ -346,6 +346,8 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.75;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "calt" 0;
   }
   pre::-webkit-scrollbar { height: 6px; }
   pre::-webkit-scrollbar-track { background: transparent; }
@@ -367,6 +369,7 @@
   .py-cm { color: #8b949e; font-style: italic; }
   .py-num { color: #f2cc60; }
   .py-builtin { color: #79c0ff; }
+  .py-op { color: #ff7b72; }
 
   :root[data-theme="light"] .kw { color: #cf222e; }
   :root[data-theme="light"] .kw2 { color: #0550ae; }
@@ -382,6 +385,7 @@
   :root[data-theme="light"] .py-cm { color: #6e7781; }
   :root[data-theme="light"] .py-num { color: #0550ae; }
   :root[data-theme="light"] .py-builtin { color: #0550ae; }
+  :root[data-theme="light"] .py-op { color: #cf222e; }
 
   /* TABLE */
   .decl-title {
@@ -2113,10 +2117,30 @@ function switchTab(btn, type, exId) {
 // Copy
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
-  navigator.clipboard.writeText(pre.innerText).then(() => {
-    btn.textContent = '✓ Copié';
+  const text = pre.innerText;
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copié';
+        setTimeout(() => btn.textContent = 'Copier', 2000);
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = '✓ Copié';
+      setTimeout(() => btn.textContent = 'Copier', 2000);
+    }
+  } catch(e) {
+    btn.textContent = '✗ Erreur';
     setTimeout(() => btn.textContent = 'Copier', 2000);
-  });
+  }
 }
 
 // Sidebar active on scroll
